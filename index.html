@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Vacance au bord de la mer</title>
+  <link href="Text.css" rel="stylesheet" type="text/css" />
+  <style>
+
+  body {
+    margin:0;
+  }
+
+</style>
+</head>
+
+<body>
+
+<canvas id = "canvas" height="400" width="400"></canvas>
+<script type = "module">
+  
+  
+import * as THREE from "https://unpkg.com/three@0.148.0/build/three.module.js" ;
+    
+
+let scene = new THREE.Scene();
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 13;
+let renderer = new THREE.WebGLRenderer()
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+//design for cylinder
+let poleGeometry = new THREE.CylinderGeometry( 1, 1, 2, 10);
+let poleMaterial = new THREE.MeshBasicMaterial({
+color: 0xedede9, 
+roughness: 0.3
+});
+let cylinder = new THREE.Mesh( poleGeometry, poleMaterial );
+scene.add(cylinder);
+
+//design for umbrella
+let paraGeometry = new THREE.ConeGeometry( 2, 3, 15 );
+let paraMaterial = new THREE.MeshBasicMaterial( {
+color: 0x2a9d8f,
+roughness: 0.3
+});
+const cone = new THREE.Mesh( paraGeometry, paraMaterial );
+cone.position.set(0, 2, 0);
+cylinder.add(cone);
+
+
+//light
+let light = new THREE.PointLight(0xFFFFFF, 1, 50);
+light.position.set(0, 0, 3)
+scene.add(light)
+
+renderer.render(scene,camera);
+
+  
+</script>
+</body>
+
+</html>
+
